@@ -12,15 +12,15 @@ var cnItems = {
     _OTHER_: [],
 
     //未分类：
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
-    '': '',
+    'Omega Point mult based': '欧米伽点数加成基于',
+    'Omega Upgrades': '欧米伽升级',
+    'on current Energy': '当前的能源',
+    'on current Omega.': '当前的欧米伽.',
+    'PVP Legend': 'PVP传奇',
+    'RESET OMEGA UPGRADES': '重置欧米伽升级',
+    'RESIMULATION': '重新模拟',
+    'Resimulate for': '重新模拟',
+    'Simulation': '模拟',
     '': '',
     '': '',
     '': '',
@@ -133,7 +133,7 @@ var cnExcludePostfix = [
 var cnRegReplace = new Map([
     [/^requires ([\d\.]+) more research points$/, '需要$1个研究点'],
     [/^(\d+) Royal points$/, '$1 皇家点数'],
-    [/^Cost: (\d+) RP$/, '成本：$1 皇家点数'],
+    [/^You have (.+) Energy$/, '你有 $1 能量'],
     [/^Usages: (\d+)\/$/, '用途：$1\/'],
     [/^workers: (\d+)\/$/, '工人：$1\/'],
 
