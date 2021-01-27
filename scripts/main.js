@@ -3772,7 +3772,7 @@ function mainLoop(){
 
 setInterval(mainLoop, 30);
 
-setInterval(save, 10000);
+setInterval(save, 3000);
 
 updateGUI();
 
