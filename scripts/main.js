@@ -1035,6 +1035,7 @@ function test(){
 
 function save() {
     localStorage.incGame = btoa(JSON.stringify(player));
+    console.log('auto save')
 }
 
 function load() {
