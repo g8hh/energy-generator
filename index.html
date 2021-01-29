@@ -408,13 +408,16 @@
             setTimeout(function(){
                 load()
                 $('.import-text').val('')
-                alert('导入')
+                alert('导入成功！')
             },1000)
+            }else{
+                alert('你要导入空气吗？年轻人，我劝你耗子尾汁！')
             }
         })
 //        导出
         $('.export').click(function(){
              $('.import-text').val(localStorage.incGame)
+                alert('导出成功！通关的小伙伴可以把存档发给阳光完善汉化哦~')
         })
     })
 </script>
