@@ -373,7 +373,15 @@
 		<button onclick="maxAll()">Max</button>
 		<button onclick="hardReset()">Reset</button>
 		-->
-		
+		<a class='importEvent'>导入/导出</a>
+		<div class="import-box">
+		    <textarea class='import-text' placeholder="导入的话只能输入存档哈~乱输别的出问题我不负责哈哈哈~"></textarea>
+		    <div class="btns">
+		        <a class='import'>导入</a>
+		        <a class='export'>导出</a>
+		        <a class='close'>关闭</a>
+		    </div>
+		</div>
 	</body>
 	<script type="text/javascript" src="scripts/break_eternity.js"></script>
 	<script type="text/javascript" src="scripts/main.js"></script>
@@ -383,6 +391,62 @@
 <script src="//likexia.gitee.io/game/js/jquery.min.js"></script>
 <link rel="stylesheet" href="//likexia.gitee.io/game/css/kf.css" type="text/css" media="screen" charset="utf-8">
 <script src="//likexia.gitee.io/game/js/kf.js"></script>
+<script>
+    $(function(){
+//        关闭
+        $('.close').click(function(){
+            $('.import-box').hide();
+        })
+//        显示
+        $('.importEvent').click(function(){
+            $('.import-box').show();
+        })
+        // 导入
+        $('.import').click(function(){
+            if($('.import-text').val() != ''){
+            localStorage.incGame =  $('.import-text').val()
+            setTimeout(function(){
+                load()
+                $('.import-text').val('')
+                alert('导入')
+            },1000)
+            }
+        })
+//        导出
+        $('.export').click(function(){
+             $('.import-text').val(localStorage.incGame)
+        })
+    })
+</script>
+<style>
+    .importEvent{
+        position: absolute;
+        right: 20px;
+        top: 10px;
+    }
+    .import-box{
+        position: absolute;
+        top: 40px;
+        right: 20px;
+        width: 240px;
+    }
+    .import-text{
+        width: 100%;
+        height: 200px;
+        user-select: all;
+    }
+    .btns{
+        text-align: center;
+        margin-top: 10px;
+    }
+    .btns a{
+        margin: 0 10px;
+        border: 1px solid #ccc;
+        padding: 3px 10px;
+        cursor: pointer;
+    }
+    
+</style>
 <!-- 客服 结束 -->
 
 
