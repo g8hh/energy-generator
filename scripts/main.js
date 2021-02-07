@@ -488,6 +488,7 @@ var player = {
 	totalAtomResets: new Decimal(0),
 	
 	firstElectronUpgradeCost: new Decimal(1e5),
+	firstElectronUpgradeFix: false,
 	secondElectronUpgradeCost: new Decimal(1e5),
 	thirdElectronUpgradeCost: new Decimal(1000),
 	thirdElectronUpgradeCost4x3y: new Decimal(1),
@@ -1003,6 +1004,7 @@ function hardReset(){
 		totalAtomResets: new Decimal(0),
 		
 		firstElectronUpgradeCost: new Decimal(1e5),
+		firstElectronUpgradeFix: false,
 		secondElectronUpgradeCost: new Decimal(1e5),
 		thirdElectronUpgradeCost: new Decimal(1000),
 		thirdElectronUpgradeCost4x3y: new Decimal(1),
@@ -1162,7 +1164,7 @@ function getFinalGenMult(){
 
 		player[name + "FinalMult"] = player[name + "Mult"].times(player.allMultFinal);
 		
-		player[name + "ExpansionGeneratorFinalMult"] = (player[name + "ExpansionGeneratorMult"].times(player.expansionGeneratorAllMultFromEleventhExpansionUpgrade).times(player.expansionGeneratorAllMultFromFirstBetaUpgrade).times(player.expansionGeneratorAllMultFromFifthBetaUpgrade).times(((player.omega).plus(1)).pow(3))).pow(player.allExpansionGeneratorPow);
+		player[name + "ExpansionGeneratorFinalMult"] = (player[name + "ExpansionGeneratorMult"].times(player.expansionGeneratorAllMultFromEleventhExpansionUpgrade).times(player.expansionGeneratorAllMultFromFirstBetaUpgrade).times(player.expansionGeneratorAllMultFromFifthBetaUpgrade)).pow(player.allExpansionGeneratorPow);
 		if (tier === 1){
 			player.firstExpansionGeneratorFinalMult = (player.firstExpansionGeneratorMult.times(player.firstExpansionMultFromUpgrades).times(player.expansionGeneratorAllMultFromEleventhExpansionUpgrade).times(player.expansionGeneratorAllMultFromFirstBetaUpgrade).times(player.firstExpansionGeneratorMultFromSecondBetaUpgrade).times(player.expansionGeneratorAllMultFromFifthBetaUpgrade)).pow(player.allExpansionGeneratorPow);
 			
@@ -1379,7 +1381,7 @@ function maxAll(){
 		}
 		*/
 		if (tier == 1){
-			for (i = 0; i < 2000; i++){
+			for (i = 0; i < 1000; i++){
 				buyAllMult();
 			}
 		}	
@@ -1900,11 +1902,47 @@ function getLoop(){
 	
 	// REMOVE THIS, IT'S JUST A FIX FOR NOW, NOT NEEDED
 	
+	/*
 	if (player.resimulateStageExponentMult.lt(1)){
 		player.resimulateStageExponentMult = new Decimal(1);
 	}
 	
+	if (player.alphaUpgrade1.eq(5)){
+		player.expansionPointMultFromFirstAlphaUpgrade = new Decimal(243);
+	}
+	
+	if (player.alphaUpgrade3.eq(5)){
+		player.expansionUpgradeThirteenEffectIncrease = new Decimal(3125);
+	}
+	
+	if (player.betaUpgrade1.eq(5)){
+		player.expansionGeneratorAllMultFromFirstBetaUpgrade = new Decimal(1024);
+	}
+	
+	if (player.betaUpgrade2.eq(5)){
+		player.firstExpansionGeneratorMultFromSecondBetaUpgrade = new Decimal(1e20);
+	}
+	
+	if (player.betaUpgrade3.eq(5)){
+		player.electricityEffectFromThirdBetaUpgrade = new Decimal(7);
+	}
+	
+	if (player.gammaUpgrade1.eq(5)){
+		player.allMultFromFirstGammaUpgrade = new Decimal(1e100);
+	}
+	
+	if (player.gammaUpgrade3.eq(5)){
+		player.prestigeEffectFromThirdGammaUpgrade = new Decimal(3.71293);
+	}
+	*/
+	
 	// REMOVE THIS, IT'S JUST A FIX FOR NOW, NOT NEEDED
+}
+
+//IKKE NØDVENDING, BARE EN FIKS
+if (player.firstElectronUpgradeFix == false){
+	player.maxElectrons = new Decimal(1e10);
+	player.firstElectronUpgradeCost = new Decimal(1e5);
 }
 
 document.getElementById("autoPrestigeCheck").checked = player.prestigeAutobuyerChecked;
@@ -2355,11 +2393,15 @@ function becomeOmega(){
 		player.allMultFromFirstExpansionUpgrade = new Decimal(1);
 		player.allMultGainFromSecondExpansionUpgrade = new Decimal(1);
 		player.allMultGainFromTwelfthExpansionUpgrade = new Decimal(1);
-		player.allMultGainFromSecondGammaUpgrade = new Decimal(1);
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.allMultGainFromSecondGammaUpgrade = new Decimal(1);
+		}
 		player.allMultFromFourthExpansionUpgrade = new Decimal(1);
 		player.allMultFromEighthExpansionUpgrade = new Decimal(1);
 		player.allMultFromTenthExpansionUpgrade = new Decimal(1);
-		player.allMultFromFirstGammaUpgrade = new Decimal(1);
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.allMultFromFirstGammaUpgrade = new Decimal(1);
+		}
 		player.allMultFromFifthGammaUpgrade = new Decimal(1);
 		player.allMultNewBaseCost = new Decimal(1e52);
 		player.allMultNewBaseCostInc = new Decimal(100);
@@ -2369,7 +2411,9 @@ function becomeOmega(){
 		player.multPerBuyFromOmegaUpgrade1x1y = new Decimal(1);
 
 		player.maxPrestige = new Decimal(15);
-		player.prestigeEffectFromThirdGammaUpgrade = new Decimal(1);
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.prestigeEffectFromThirdGammaUpgrade = new Decimal(1);
+		}
 		player.prestigeEffectFromOmegaUpgrade2x1y = new Decimal(1);
 		
 		player.expansionPoints = new Decimal(0);
@@ -2383,14 +2427,19 @@ function becomeOmega(){
 		player.expansionCost = new Decimal("1e308");
 		player.expansionPointMultFromNinthExpansionUpgrade = new Decimal(1);
 		player.expansionPointMultFromThirteenthExpansionUpgrade = new Decimal(1);
-		player.expansionPointMultFromFirstAlphaUpgrade = new Decimal(1);
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.expansionPointMultFromFirstAlphaUpgrade = new Decimal(1);
+		}
 		player.expansionPointMultFromFifthAlphaUpgrade = new Decimal(1);
-		player.expansionUpgradeThirteenEffectIncrease = new Decimal(1);
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.expansionUpgradeThirteenEffectIncrease = new Decimal(1);
+		}
 		player.expansionPointMultFromSecondAlphaUpgrade = new Decimal(1);
 
 		player.electricity = new Decimal(0);
-		player.electricityEffectFromThirdBetaUpgrade = new Decimal(1);
-
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.electricityEffectFromThirdBetaUpgrade = new Decimal(1);
+		}
 		player.firstExpansionGeneratorCost = new Decimal(1);
 		player.secondExpansionGeneratorCost = new Decimal(100);
 		player.thirdExpansionGeneratorCost = new Decimal(1e4);
@@ -2474,8 +2523,10 @@ function becomeOmega(){
 
 		player.firstExpansionMultFromUpgrades = new Decimal(1);
 		player.expansionGeneratorAllMultFromEleventhExpansionUpgrade = new Decimal(1);
-		player.expansionGeneratorAllMultFromFirstBetaUpgrade = new Decimal(1);
-		player.firstExpansionGeneratorMultFromSecondBetaUpgrade = new Decimal(1);
+		if (player.secondAtomUpgradeBought.lt(2)){
+			player.expansionGeneratorAllMultFromFirstBetaUpgrade = new Decimal(1);
+			player.firstExpansionGeneratorMultFromSecondBetaUpgrade = new Decimal(1);
+		}
 		player.expansionGeneratorAllMultFromFifthBetaUpgrade = new Decimal(1);
 
 		player.alpha = new Decimal(0);
@@ -2757,8 +2808,8 @@ function getOmegaUpgradeEffect(){
 		player.alphaUpgrade5MultIncreaseFromOmegaUpgrade1x2y = new Decimal(1);
 	}
 	if (player.omegaUpgrade2x2y == true){
-		if (((player.omega.pow(0.1)).div(63)).gt(1)){
-			player.omegaPointMultFrom2x2y = (player.omega.pow(0.1)).div(63);
+		if (((player.omega.pow(0.1)).div(15)).gt(1)){
+			player.omegaPointMultFrom2x2y = (player.omega.pow(0.1)).div(15);
 		}
 	}
 	else {
@@ -2909,8 +2960,9 @@ function buyElectronUpgrades(x) {
 	if (x == 1){
 		if (player.omegaPoints.gte(player.firstElectronUpgradeCost)){
 			player.omegaPoints = player.omegaPoints.minus(player.firstElectronUpgradeCost);
-			player.maxElectrons = player.maxElectrons.pow(2);
-			player.firstElectronUpgradeCost = player.firstElectronUpgradeCost.times(4);
+			player.maxElectrons = player.maxElectrons.pow(1.6);
+			player.firstElectronUpgradeCost = player.firstElectronUpgradeCost.times(6);
+			player.firstElectronUpgradeFix = true;
 		}
 	}
 	if (x == 2){
@@ -3233,7 +3285,7 @@ function updateGUI(){
 	
 	let ABGText = "<p><b>ALPHA BETA GAMMA:</b><br>You can purchase three different currencies; Alpha, Beta and Gamma. Alpha costs energy, <br>Beta costs EP and Gamma costs electricity. You can use them to buy different upgrades!";
 	
-	let omegaText = "<p><b>OMEGA:</b><br>Becoming Omega resets everything you've done so far, but with some big rewards. <br>You unlock a new set of generators, and upgrades. Omega Generators produce Omega.<br>Omega makes electricity stronger and gives a multiplier to Expansion Generators<br>The upgrades costs Omega, and it goes up every time you buy another upgrade. <br>Omega upgrades is kind of like a skill tree. You need to buy every previous upgrade to be able to purchase <br>the next. If you're unhappy with a choice you made, or want to try a different build, you can reset for free!";
+	let omegaText = "<p><b>OMEGA:</b><br>Becoming Omega resets everything you've done so far, but with some big rewards. <br>You unlock a new set of generators, and upgrades. Omega Generators produce Omega.<br>Omega makes electricity stronger.<br>The upgrades costs Omega, and it goes up every time you buy another upgrade. <br>Omega upgrades is kind of like a skill tree. You need to buy every previous upgrade to be able to purchase <br>the next. If you're unhappy with a choice you made, or want to try a different build, you can reset for free!";
 	
 	let simulationText = "<p><b>SIMULATION:</b><br>In the simulation you have to fight your way through hordes of monsters, and infinite floors. <br>There are two different modes you can be in: Gold Mode and Fighting Mode. <br>In Gold Mode you will earn gold, and in Fighting Mode you will fight (duh). <br>Use your gold to upgrade your three heroes. You also get a multiplier to your gold income based on <br>what stage you're at. Later you will be able to Resimulate, resetting your simulation back to the beginning. <br>But like with all the other prestige mechanics, you get stronger.";
 	
@@ -3514,7 +3566,7 @@ function updateGUI(){
 	
 	// ELECTRONS TAB *************************** 
 	
-	if (player.omega.gte(1e18) && player.hasUnlockedElectrons == false){
+	if (player.omega.gte(1e20) && player.hasUnlockedElectrons == false){
 		player.hasUnlockedElectrons = true;
 	}
 	
@@ -3526,7 +3578,7 @@ function updateGUI(){
 	document.getElementById("electrons").innerText = "You have " + format(player.electrons, 2) + " Electrons";
 	document.getElementById("electronEffect").innerText = "They multiply all mult gain by " + format(player.electronEffect, 2) + "x";
 	
-	document.getElementById("electronUpgrade1").innerHTML = "Raise max Electrons by ^2<br>Max Electrons: " + format(player.maxElectrons, 2) + "<br>Cost: " + format(player.firstElectronUpgradeCost, 2) + " OP";
+	document.getElementById("electronUpgrade1").innerHTML = "Raise max Electrons by ^1.6<br>Max Electrons: " + format(player.maxElectrons, 2) + "<br>Cost: " + format(player.firstElectronUpgradeCost, 2) + " OP";
 	
 	document.getElementById("electronUpgrade2").innerHTML = "Multiply Electron gain by " + format(player.electronGainGain, 2) + "x<br>Currently: " + format(player.electronGainFinal, 2) + "x<br>Cost: " + format(player.secondElectronUpgradeCost, 2) + " OP";
 	
