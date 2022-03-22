@@ -826,7 +826,7 @@ function exportSave(){
 }
 
 function importSave(){
-	let confirmation = confirm("Are you sure you want to import?");
+	let confirmation = confirm("您确定要导入吗？");
 
 	if (confirmation){
 		hardReset();
@@ -849,7 +849,7 @@ function importSave(){
 }
 
 function trueHardReset(){
-	let confirmation = confirm("Are you sure you want to Hard Reset?");
+	let confirmation = confirm("您确定要硬重置吗？");
 
 	if (confirmation){
 		hardReset();
