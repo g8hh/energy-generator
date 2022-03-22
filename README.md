@@ -1,1 +1,1 @@
-# energy-generator
+https://eyewars.github.io/Energy-Generator/
