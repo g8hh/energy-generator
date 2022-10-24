@@ -1306,7 +1306,7 @@ function getFinalMultPerBuy(){
 }
 
 function getFinalAllMultCost(){
-	if ((Decimal.log10(Decimal.log10(player.omega))).gt(1)){
+	if ((player.omega).gt(1)){
 		if (player.milestone22){
 			player.omegaEffect = new Decimal(1).plus(Decimal.log2(Decimal.log2(player.omega)));
 		}
@@ -1314,6 +1314,7 @@ function getFinalAllMultCost(){
 			player.omegaEffect = new Decimal(1).plus(Decimal.log10(Decimal.log10(player.omega)));
 		}
 	}
+	else player.omegaEffect = new Decimal(1);
 	player.allMultFinalCost = player.allMultCost.div(player.electricity.plus(1).pow(15).pow(player.electricityEffectFromThirdBetaUpgrade).pow(player.omegaEffect));
 }
 
@@ -6224,7 +6225,7 @@ function updateGUI(){
 
 	let retireText = "<p><b>RETIRE:</b><br>You just Retired from the Battle Tower, resetting your character. However, you just gained some fancy new Super Skillpoints!<br>These Skillpoints will stay with you forever, even after Retiring. Super Skillpoints work differently from your normal Skillpoints.<br>Instead of directly making you strong, they make your Skillpoints more effective. The max amount of Super Skillpoints you can have<br>is equal to the highest level Enemy you have ever killed. When you retire you keep the permanent Skillpoints you gained from some of the Atom Shop items.";
 
-	let particleText = "<p><b>PARTICLE ASSIMILATOR:</b><br>You have 8 Particle Assimilators. When they fill up, you gain Particles and the amount of Partiles you get in the future is multiplied.<br>When you level a Particle Assimilator up, it gets a little faster. After reaching level 100, you can Ascend them.<br>After Ascending them, their level is set back to 1 and the Speed is reset, but in return, it now significantly increases how much it increases your multiplier when it fills up.<br>It's not always best to Ascend as soon as you can, so you'll have to figure out when it's most efficient.<br>Later on you will unlock different new Prestige layers that lets you reset your previous progress for a bonus.";
+	let particleText = "<p><b>PARTICLE ASSIMILATOR:</b><br>You have 8 Particle Assimilators. When they fill up, you gain Particles and the amount of Particles you get in the future is multiplied.<br>When you level a Particle Assimilator up, it gets a little faster. After reaching level 100, you can Ascend them.<br>After Ascending them, their level is set back to 1 and the Speed is reset, but in return, it now significantly increases how much it increases your multiplier when it fills up.<br>It's not always best to Ascend as soon as you can, so you'll have to figure out when it's most efficient.<br>Later on you will unlock different new Prestige layers that lets you reset your previous progress for a bonus.";
 	
 	if (player.hasUnlockedFillBar == true){
 		document.getElementById("infoText").innerHTML = baseText + hotkeyTextBattleTower + generatorText + prestigeText + expansionText + autobuyerText + ABGText + omegaText + simulationText + electronText + realityText + battleTowerText + retireText + particleText;
