@@ -434,7 +434,7 @@ var cnItems = {
     'Increase EP gain based on time spend in this expansion': '根据此扩张中的时间花费来增加扩张点收益',
     'Gain a multiplier to': '获得乘数',
     'Gain a multiplier': '获得乘数',
-    'is every 29th instead': '是每一个第29，而不是',
+    'is every 29th instead': '改为每29',
     'The 3 previous upgrades': '之前的3个升级',
     'Increase Alpha': '提高阿尔法',
     'Increase Beta': '提高贝塔',
